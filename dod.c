@@ -1,13 +1,11 @@
+#include <list>
 #include <iostream>
-#include <cstdlib>
 
-struct lista l {
-	int a;
-	int baza;
-	struct lista *l;
-};
+list wczytaj(list *) {
 
-void dodaj(int a, struct lista l) {
+}
+
+void dodaj(int a,) {
 	if(a+l.a>=baza) {
 		if(*l) {
 			l.l=calloc()
@@ -17,7 +15,8 @@ void dodaj(int a, struct lista l) {
 }
 
 int main(int argc, char *argv[]) {
-
+	list<int> lista;
+	lista.push_back(liczba);
 	return 0;
 }
 
