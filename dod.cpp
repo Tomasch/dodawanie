@@ -63,8 +63,23 @@ list<int> dodaj(list<int> l1, list<int> l2) {
 	return l;
 }
 
-void pomnoz(list<int> l1, list<int> l2) {
+list<int> pomnozRaz(list<int> l, int a) {
+	div_t z={0,0};
+	for( list<int>::reverse_iterator iter=l.rbegin(); iter != l.rend(); --iter ) {
+		z=div(*iter*a+z.quot, 256);
+		*iter=z.rem;
+	}
+	if(z.quot)
+		l.push_front(z.quot);
+}
 
+void pomnoz(list<int> l1, list<int> l2) {
+	//sprawdzić która większa
+	for( list<int>::reverse_iterator i2=l2.rbegin(); i2 != l2.rend(); --i2 ) {
+		for( list<int>::reverse_iterator i1=l1.rbegin(); i1 != l1.rend(); --i1 ) {
+
+		}
+	}
 }
 
 int main(int argc, char *argv[]) {
