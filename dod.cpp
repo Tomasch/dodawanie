@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <sstream>
+#include <cstring>
 
 using namespace std;
 
@@ -57,19 +58,26 @@ list<int> dodaj(list<int> l1, list<int> l2) {
 		l.push_front(*i1);
 	for(;i2!=l2.rend();++i2) //dodaje pozostałe z i2 jeśli takie istnieją
 		l.push_front(*i2);
+	if(quot)
+		l.push_front(quot);
 	return l;
+}
+
+void pomnoz(list<int> l1, list<int> l2) {
+
 }
 
 int main(int argc, char *argv[]) {
 	if(argc<2) {
-		cout << "Nie wpisałeś argumentu (liczby w x)" << endl;
+		cout << "Nie wpisałeś argumentów (dwóch liczb w x)" << endl;
 		exit (0);
 	}
 	int a=0;
 	while(argv[1][a++]){}
 	list<int> l = wczytaj(argv[1], a);
 	drukuj(l);
-	list<int> l2 = wczytaj("123456", 7);
+	list<int> l2 = wczytaj(argv[2], 7);
+	drukuj(l2);
 	list<int> l3=dodaj(l, l2);
 	cout << "wynik to ";
 	drukuj(l3);
