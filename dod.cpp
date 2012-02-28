@@ -77,17 +77,16 @@ list<int> pomnozRaz(list<int> l, int a) {
 	return l;
 }
 
-void pomnoz(list<int> l1, list<int> l2) {
+list<int> pomnoz(list<int> l1, list<int> l2) {
 	if(l1.size()<l2.size()) l1.swap(l2);
 	int offset=0;
 	list<int> w, p;
 	for( list<int>::reverse_iterator i2=l2.rbegin(); i2 != l2.rend(); ++i2, offset++ ) {
-		for( list<int>::reverse_iterator i1=l1.rbegin(); i1 != l1.rend(); ++i1 ) {
 			p=pomnozRaz(l1, *i2);
 			p.resize(p.size()+offset, 0);
 			w=dodaj(w, p);
-		}
 	}
+	return w;
 }
 
 char porownaj(list<int> l1, list<int> l2) {
@@ -107,20 +106,19 @@ char porownaj(list<int> l1, list<int> l2) {
 }
 
 int main(int argc, char *argv[]) {
-	if(argc<2) {
-		cout << "Nie wpisałeś argumentów (dwóch liczb w x)" << endl;
+	if(argc<4) {
+		cout << "Nie wpisałeś argumentów <liczba1 operator liczba2>" << endl;
 		exit (0);
 	}
 	int a=0, b=0;
 	while(argv[1][a++]){}
-	while(argv[2][b++]){}
-	list<int> l = wczytaj(argv[1], a);
-	drukuj(l);
-	list<int> l2 = wczytaj(argv[2], b);
-	drukuj(l2);
-	list<int> l3=dodaj(l, l2);
-	cout << "wynik to ";
-	drukuj(l3);
+	while(argv[3][b++]){}
+	list<int> l1 = wczytaj(argv[1], a);
+	list<int> l2 = wczytaj(argv[3], b);
+	if(*argv[2]=='?')
+		cout<<porownaj(l1, l2);
+	else if(*argv[2]=='*')
+		drukuj(pomnoz(l1, l2));
 	cout << endl;
 	return 0;
 }
