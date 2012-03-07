@@ -8,13 +8,13 @@
 
 using namespace std;
 
-list<int> wczytaj(char *argv, int s) {
+list<int> wczytaj(string arg, int s) {
 	list<int> lista;
 	char buf[3];
 	buf[2]=0;
 	int liczba, a=0;
 	if(s%2==0) {
-		buf[0]=argv[0];
+		buf[0]=arg[0];
 		buf[1]=0;
 		stringstream ss;
 		ss << hex << buf;
@@ -22,9 +22,9 @@ list<int> wczytaj(char *argv, int s) {
 		lista.push_back(liczba);
 		a=1;
 	}
-	for(; argv[a]&&argv[a+1] ; a+=2) {
-		buf[0]=argv[a];
-		buf[1]=argv[a+1];
+	for(; arg[a]&&arg[a+1] ; a+=2) {
+		buf[0]=arg[a];
+		buf[1]=arg[a+1];
 		stringstream ss;
 		ss << hex << buf;
 		ss >> liczba;
@@ -35,6 +35,7 @@ list<int> wczytaj(char *argv, int s) {
 
 void drukuj(list<int> l) {
 	for( list<int>::iterator iter=l.begin(); iter != l.end(); ++iter ) {
+		//cout << " ";
 		if(*iter<16)
 			cout << "0";
 		cout << hex << *iter;
@@ -76,6 +77,12 @@ list<int> pomnozRaz(list<int> l, int a) {
 		l.push_front(z.quot);
 	return l;
 }
+/*
+10ad5
+*
+e7590
+
+ */
 
 list<int> pomnoz(list<int> l1, list<int> l2) {
 	if(l1.size()<l2.size()) l1.swap(l2);
@@ -84,6 +91,8 @@ list<int> pomnoz(list<int> l1, list<int> l2) {
 	for( list<int>::reverse_iterator i2=l2.rbegin(); i2 != l2.rend(); ++i2, offset++ ) {
 			p=pomnozRaz(l1, *i2);
 			p.resize(p.size()+offset, 0);
+			//cout << "razy " << *i2 << ": ";
+			//drukuj(p);
 			w=dodaj(w, p);
 	}
 	return w;
@@ -106,19 +115,13 @@ char porownaj(list<int> l1, list<int> l2) {
 }
 
 int main(int argc, char *argv[]) {
-	if(argc<4) {
-		cout << "Nie wpisałeś argumentów <liczba1 operator liczba2>" << endl;
-		exit (0);
-	}
-	int a=0, b=0;
-	while(argv[1][a++]){}
-	while(argv[3][b++]){}
-	list<int> l1 = wczytaj(argv[1], a);
-	list<int> l2 = wczytaj(argv[3], b);
-	if(*argv[2]=='?')
-		cout<<porownaj(l1, l2);
-	else if(*argv[2]=='*')
+	string a1, a2, op;
+	cin >> a1 >> op >> a2;
+	list<int> l1 = wczytaj(a1, a1.size()+1);
+	list<int> l2 = wczytaj(a2, a2.size()+1);
+	if(op.compare("?")==0)
+		cout<<porownaj(l1, l2) << endl;
+	else if(op.compare("*")==0)
 		drukuj(pomnoz(l1, l2));
-	cout << endl;
 	return 0;
 }
